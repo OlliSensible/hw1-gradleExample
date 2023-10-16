@@ -28,8 +28,12 @@ java {
 
 jar {
     manifest {
-        attributes ['Main-Class']= 'Main'
+        attributes 'Main-Class': 'MyName'
     }
     archiveFileName = 'myname.jar'
-    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    from sourceSets.main.output
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
+
